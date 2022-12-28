@@ -45,7 +45,7 @@ class Bank:
 
 class Player:
     def __init__(self):
-        self.lives = 10
+        self.lives = 0  # changed to zero
         self.answer = ''
         self.guess_validation_incomplete = True
 
@@ -97,6 +97,7 @@ class Main:
 
         word_bank.pick_topic()
         word_bank.pick_word()
+        player1.lives = len(word_bank.current_word) * 3  # number of lives must be three times the word's length
 
         while word_bank.not_solved and player1.lives > 0:
             while player1.guess_validation_incomplete:
@@ -121,5 +122,5 @@ class Main:
 
 
 Play = Main()
-Play
+# deleted the useless Play
 del Play
