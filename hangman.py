@@ -57,14 +57,17 @@ class Processes:
     def __init__(self):
         pass
 
-    def validate_user_input(self, player):
-        expression = re.match('(?i)[a-a]', player.answer)
-        if expression == None or len(player.answer) > 1:
+    @staticmethod  # made it static method
+    def validate_user_input(player):
+        expression = re.match('(?i)[a-z]', player.answer)  # changed a-a to a-z
+        player.answer = player.answer.lower()  # changed the user input to lower
+        if expression is None or len(player.answer) > 1:  # changed == to is
             print('\nPlease guess a single alphabet')
         else:
             player.guess_validation_incomplete = False
 
-    def check_answer_update_lives(self, bank, player):
+    @staticmethod  # made it static method
+    def check_answer_update_lives(bank, player):
         if player.answer in bank.letters_already_guessed:
             print('\nLetter already guessed.')
 
