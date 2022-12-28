@@ -21,25 +21,25 @@ class Bank:
         self.letters_already_guessed = []
         self.api_response_status = False
 
-    def pick_topic(self):
+    def pick_topic(self) -> None:
         self.current_topic = choice(self.topic_names)
 
-    def get_word(self):
+    def get_word(self) -> None:
         response = requests.get(f"{self.api}", headers={'X-Api-Key': f"{self.api_key}"}, params={type: 'noun'})
         if response.status_code == 200:
             word = json.loads(response.text)
             self.api_response_status = True
             self.current_word = word['word'].lower()
 
-    def pick_word(self):
+    def pick_word(self) -> None:
         self.current_word = choice(self.topics[self.current_topic])
 
     # this method is to access the current_word_display easier
-    def display_maker(self):
+    def display_maker(self) -> None:
         for i in range(len(self.current_word)):
             self.current_word_display.append('_')
 
-    def check_solve(self):
+    def check_solve(self) -> None:
         self.not_solved = "_" in self.current_word_display
 
 
@@ -49,7 +49,7 @@ class Player:
         self.answer = ''
         self.guess_validation_incomplete = True
 
-    def guess(self, guess_input):
+    def guess(self, guess_input: str) -> None:
         self.answer = guess_input
 
 
@@ -58,7 +58,7 @@ class Processes:
         pass
 
     @staticmethod
-    def validate_user_input(player):
+    def validate_user_input(player: Player):
         expression = re.match('(?i)[a-z]', player.answer)
         player.answer = player.answer.lower()
         if expression is None or len(player.answer) > 1:
@@ -68,7 +68,7 @@ class Processes:
             return True
 
     @staticmethod
-    def check_answer_update_lives(bank, player):
+    def check_answer_update_lives(bank: Bank, player: Player) -> str:
         if player.answer in bank.letters_already_guessed:
             return "repeated"
 
