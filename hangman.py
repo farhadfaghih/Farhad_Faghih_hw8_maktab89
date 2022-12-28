@@ -40,7 +40,7 @@ class Bank:
         print(self.current_word_display)
 
     def check_solve(self):
-        self.not_solved = self.letters_guessed_counter < len(self.current_word)
+        self.not_solved = "_" in self.current_word_display  # changed the check_solve method completely
 
 
 class Player:
